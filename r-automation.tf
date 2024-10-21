@@ -1,8 +1,10 @@
 resource "azurerm_automation_account" "main" {
-  name = local.automation_stop_start_name
+  name = local.name
 
   location            = var.location
   resource_group_name = var.resource_group_name
+
+  sku_name = var.sku_name
 
   dynamic "identity" {
     for_each = var.identity[*]
