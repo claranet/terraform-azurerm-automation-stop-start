@@ -21,6 +21,13 @@ variable "sku_name" {
   nullable    = false
 }
 
+variable "rbac_assignment_enabled" {
+  description = "Enable RBAC assignment, allows Automation Account to trigger Logic App."
+  type        = bool
+  default     = true
+  nullable    = false
+}
+
 variable "schedules" {
   description = "Schedules"
   type = map(
@@ -31,15 +38,13 @@ variable "schedules" {
       schedule_minutes    = number
       schedule_timezone   = string
       target_resource_ids = list(string)
-      }
-    )
+    })
   )
 
   validation {
     condition = alltrue([
       for schedule in var.schedules : schedule.schedule_minutes >= 0 && schedule.schedule_minutes <= 59
     ])
-
     error_message = "The schedule_minutes variable must be a number between 0 and 59."
   }
 

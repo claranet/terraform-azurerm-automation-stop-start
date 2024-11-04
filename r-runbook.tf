@@ -9,7 +9,7 @@ resource "azurerm_automation_runbook" "start_stop" {
   automation_account_name = local.automation_account_name
   log_verbose             = "true"
   log_progress            = "true"
-  description             = "This is a runbook to stop/start an Azure resource"
+  description             = "Runbook for scheduling Azure resources start and stop."
   runbook_type            = "PowerShell"
 
   content = data.local_file.start_stop.content

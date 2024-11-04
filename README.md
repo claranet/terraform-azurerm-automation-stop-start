@@ -189,9 +189,10 @@ resource "azurerm_role_assignment" "automation_aks" {
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
 | name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
+| rbac\_assignment\_enabled | Enable RBAC assignment, allows Automation Account to trigger Logic App. | `bool` | `true` | no |
 | resource\_group\_name | Name of the resource group. | `string` | n/a | yes |
 | runbook\_custom\_name | Custom runbook name, generated if not set. | `string` | `""` | no |
-| schedules | Schedules | <pre>map(<br/>    object({<br/>      action              = string<br/>      schedule_days       = list(string)<br/>      schedule_hours      = number<br/>      schedule_minutes    = number<br/>      schedule_timezone   = string<br/>      target_resource_ids = list(string)<br/>      }<br/>    )<br/>  )</pre> | n/a | yes |
+| schedules | Schedules | <pre>map(<br/>    object({<br/>      action              = string<br/>      schedule_days       = list(string)<br/>      schedule_hours      = number<br/>      schedule_minutes    = number<br/>      schedule_timezone   = string<br/>      target_resource_ids = list(string)<br/>    })<br/>  )</pre> | n/a | yes |
 | sku\_name | The SKU name of the Automation Account. | `string` | `"Basic"` | no |
 | stack | Project stack name. | `string` | n/a | yes |
 | workflow\_custom\_name | Custom workflow name, generated if not set. | `string` | `""` | no |
