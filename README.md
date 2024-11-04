@@ -171,6 +171,7 @@ resource "azurerm_role_assignment" "automation_aks" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | api\_connection\_custom\_name | Custom api connection account name, generated if not set. | `string` | `""` | no |
+| automation\_account\_id | The ID of the existing Automation Account. If null is specified, a new Automation Account will be created. | `string` | `null` | no |
 | client\_name | Client name/account used in naming. | `string` | n/a | yes |
 | custom\_name | Custom automation account name, generated if not set. | `string` | `""` | no |
 | default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |

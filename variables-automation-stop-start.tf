@@ -1,3 +1,9 @@
+variable "automation_account_id" {
+  description = "The ID of the existing Automation Account. If null is specified, a new Automation Account will be created."
+  type        = string
+  default     = null
+}
+
 variable "identity" {
   description = "Identity block information."
   type = object({

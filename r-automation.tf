@@ -1,4 +1,6 @@
 resource "azurerm_automation_account" "main" {
+  count = var.automation_account_id == null ? 1 : 0
+
   name = local.name
 
   location            = var.location

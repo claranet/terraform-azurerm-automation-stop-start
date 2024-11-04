@@ -1,4 +1,7 @@
 locals {
+  automation_account_id   = var.automation_account_id == null ? one(azurerm_automation_account.main[*].id) : var.automation_account_id
+  automation_account_name = reverse(split("/", local.automation_account_id))[0]
+
   code_template_filename = "workflow.tftpl"
 
   recurences = {

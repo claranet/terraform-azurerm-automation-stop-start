@@ -6,7 +6,7 @@ resource "azurerm_automation_runbook" "start_stop" {
   name                    = local.runbook_name
   location                = var.location
   resource_group_name     = var.resource_group_name
-  automation_account_name = azurerm_automation_account.main.name
+  automation_account_name = local.automation_account_name
   log_verbose             = "true"
   log_progress            = "true"
   description             = "This is a runbook to stop/start an Azure resource"
