@@ -57,6 +57,8 @@ module "stop_start" {
   environment         = var.environment
   stack               = var.stack
 
+  automation_account_id = module.run.automation_account_id
+
   schedules = {
     start = {
       action = "start",
@@ -102,8 +104,8 @@ module "stop_start" {
   }
 
   logs_destinations_ids = [
-    module.logs.logs_storage_account_id,
-    module.logs.log_analytics_workspace_id
+    module.run.logs_storage_account_id,
+    module.run.log_analytics_workspace_id
   ]
 
   extra_tags = {
