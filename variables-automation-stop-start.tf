@@ -1,7 +1,9 @@
-variable "automation_account_id" {
+variable "automation_account" {
   description = "The ID of the existing Automation Account. If null is specified, a new Automation Account will be created."
-  type        = string
-  default     = null
+  type = object({
+    id = string
+  })
+  default = null
 }
 
 variable "identity" {

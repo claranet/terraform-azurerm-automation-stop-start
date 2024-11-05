@@ -16,7 +16,9 @@ module "stop_start" {
   environment         = var.environment
   stack               = var.stack
 
-  automation_account_id = module.run.automation_account_id
+  automation_account = {
+    id = module.run.automation_account_id
+  }
 
   schedules = {
     start = {

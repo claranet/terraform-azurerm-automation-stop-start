@@ -57,7 +57,9 @@ module "stop_start" {
   environment         = var.environment
   stack               = var.stack
 
-  automation_account_id = module.run.automation_account_id
+  automation_account = {
+    id = module.run.automation_account_id
+  }
 
   schedules = {
     start = {
@@ -173,7 +175,7 @@ resource "azurerm_role_assignment" "automation_aks" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | api\_connection\_custom\_name | Custom api connection account name, generated if not set. | `string` | `""` | no |
-| automation\_account\_id | The ID of the existing Automation Account. If null is specified, a new Automation Account will be created. | `string` | `null` | no |
+| automation\_account | The ID of the existing Automation Account. If null is specified, a new Automation Account will be created. | <pre>object({<br/>    id = string<br/>  })</pre> | `null` | no |
 | client\_name | Client name/account used in naming. | `string` | n/a | yes |
 | custom\_name | Custom automation account name, generated if not set. | `string` | `""` | no |
 | default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
