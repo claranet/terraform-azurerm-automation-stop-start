@@ -1,34 +1,27 @@
-resource "null_resource" "workflow_init" {
+resource "azapi_update_resource" "workflow_init" {
   for_each = var.schedules
-  triggers = {
-    workflow = azurerm_logic_app_workflow.main[each.key].id
-  }
 
-  provisioner "local-exec" {
-    command = "az logic workflow update --resource-group ${var.resource_group_name} --definition ${path.module}/files/workflow_init.json --name ${local.workflow_name[each.key]} --subscription ${data.azurerm_subscription.main.subscription_id}"
-  }
+  type        = "Microsoft.Logic/workflows@2016-06-01"
+  resource_id = azurerm_logic_app_workflow.main[each.key].id
 
+  body = jsonencode({
+    location   = var.location
+    properties = jsondecode(file("${path.module}/files/workflow_init.json"))
+  })
 }
 
-resource "null_resource" "workflow_update" {
+resource "azapi_update_resource" "workflow_update" {
   for_each = var.schedules
-  triggers = {
-    workflow = azurerm_logic_app_workflow.main[each.key].id
-    code     = templatefile("${path.module}/files/workflow.tftpl", local.workflow_vars[each.key])
-  }
 
-  provisioner "local-exec" {
-    command = "az logic workflow update --resource-group ${var.resource_group_name} --definition ${format("workflow_code-%s.json", each.key)} --name ${local.workflow_name[each.key]} --subscription ${data.azurerm_subscription.main.subscription_id}"
-  }
+  type        = "Microsoft.Logic/workflows@2016-06-01"
+  resource_id = azurerm_logic_app_workflow.main[each.key].id
+
+  body = jsonencode({
+    location   = var.location
+    properties = jsondecode(templatefile("${path.module}/files/workflow.tftpl", local.workflow_vars[each.key]))
+  })
 
   depends_on = [
-    local_file.code_file,
-    null_resource.workflow_init
+    azapi_update_resource.workflow_init
   ]
-}
-
-resource "local_file" "code_file" {
-  for_each = var.schedules
-  content  = templatefile("${path.module}/files/${local.code_template_filename}", local.workflow_vars[each.key])
-  filename = format("workflow_code-%s.json", each.key)
 }

@@ -138,11 +138,10 @@ resource "azurerm_role_assignment" "automation_aks" {
 
 | Name | Version |
 |------|---------|
-| azapi | ~> 1.11 |
+| azapi | ~> 1.13 |
 | azurecaf | ~> 1.2.28 |
 | azurerm | ~> 3.100 |
 | local | ~> 2.4 |
-| null | ~> 3.2 |
 
 ## Modules
 
@@ -155,13 +154,12 @@ resource "azurerm_role_assignment" "automation_aks" {
 | Name | Type |
 |------|------|
 | [azapi_resource.automation_connection](https://registry.terraform.io/providers/azure/azapi/latest/docs/resources/resource) | resource |
+| [azapi_update_resource.workflow_init](https://registry.terraform.io/providers/azure/azapi/latest/docs/resources/update_resource) | resource |
+| [azapi_update_resource.workflow_update](https://registry.terraform.io/providers/azure/azapi/latest/docs/resources/update_resource) | resource |
 | [azurerm_automation_account.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_account) | resource |
 | [azurerm_automation_runbook.start_stop](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_runbook) | resource |
 | [azurerm_logic_app_workflow.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/logic_app_workflow) | resource |
 | [azurerm_role_assignment.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
-| [local_file.code_file](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
-| [null_resource.workflow_init](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
-| [null_resource.workflow_update](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [azurecaf_name.api_connection](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurecaf_name.automation](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurecaf_name.runbook](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
