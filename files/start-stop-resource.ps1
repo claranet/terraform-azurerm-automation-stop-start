@@ -26,8 +26,13 @@ $AzureContext = Set-AzContext -SubscriptionName $AzureContext.Subscription -Defa
 
 $resource_type = $(Get-AzResource -ResourceId $target_resource_id).ResourceType
 $resource_name = $(Get-AzResource -ResourceId $target_resource_id).Name
+$resource_sub = ($target_resource_id -split "/")[2]
 
-Write-Output "Resource type: $resource_type - Resource name: $resource_name"
+Write-Output "Resource type: $resource_type - Resource name: $resource_name in Sub $resource_sub"
+Write-Output "Switching context to $resource_sub"
+
+Set-AzContext -Subscription $resource_sub
+Get-AzContext
 
 Switch ($resource_type) {
     "Microsoft.Compute/virtualMachines" {
