@@ -1,3 +1,17 @@
+## 7.0.1 (2024-11-29)
+
+### Bug Fixes
+
+* handle target resource Subscription context in Automation Runbook script 2b1b735
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.8.6 2a9ef78
+* **deps:** update dependency trivy to v0.57.1 731ca9f
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.19.0 af430fa
+* **deps:** update terraform hashicorp/terraform to 1.5 de615f4
+* **deps:** update tools 9fdbe13
+
 ## 7.0.0 (2024-11-15)
 
 ### ⚠ BREAKING CHANGES
