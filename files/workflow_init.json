@@ -12,7 +12,7 @@
         "triggers": {
             "reccurence": {
                 "evaluatedRecurrence": {
-                    "frequency": "Minute",
+                    "frequency": "Week",
                     "interval": 1
                 },
                 "recurrence": {

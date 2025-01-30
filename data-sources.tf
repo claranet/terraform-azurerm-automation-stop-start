@@ -1,5 +1,5 @@
-data "azurerm_resource_group" "main" {
-  name = var.resource_group_name
-}
-
 data "azurerm_subscription" "main" {}
+
+data "local_file" "main" {
+  filename = "${path.module}/files/start-stop-resource.ps1"
+}

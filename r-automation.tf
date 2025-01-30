@@ -1,9 +1,9 @@
 resource "azurerm_automation_account" "main" {
   count = var.automation_account == null ? 1 : 0
 
-  name = local.name
+  name     = local.name
+  location = var.location
 
-  location            = var.location
   resource_group_name = var.resource_group_name
 
   sku_name = var.sku_name

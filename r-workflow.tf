@@ -1,25 +1,23 @@
 resource "azurerm_logic_app_workflow" "main" {
-  for_each            = var.schedules
-  name                = local.workflow_name[each.key]
-  location            = var.location
-  resource_group_name = var.resource_group_name
+  for_each = var.schedules
 
-  identity {
-    type = "SystemAssigned"
-  }
+  name     = local.workflow_name[each.key]
+  location = azapi_resource.automation_connection.location
+
+  resource_group_name = var.resource_group_name
 
   parameters = {
     "$connections" = jsonencode(
       {
         azureautomation = {
-          connectionId   = "/subscriptions/${data.azurerm_subscription.main.subscription_id}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Web/connections/${local.api_connection_name}"
+          connectionId   = format("%s/resourceGroups/%s/providers/Microsoft.Web/connections/%s", data.azurerm_subscription.main.id, var.resource_group_name, local.api_connection_name)
           connectionName = local.api_connection_name
           connectionProperties = {
             authentication = {
               type = "ManagedServiceIdentity"
             }
           }
-          id = "/subscriptions/${data.azurerm_subscription.main.subscription_id}/providers/Microsoft.Web/locations/${var.location_cli}/managedApis/azureautomation"
+          id = format("%s/providers/Microsoft.Web/locations/%s/managedApis/azureautomation", data.azurerm_subscription.main.id, var.location_cli)
         }
       }
     )
@@ -34,7 +32,9 @@ resource "azurerm_logic_app_workflow" "main" {
     )
   }
 
-  depends_on = [
-    azapi_resource.automation_connection,
-  ]
+  identity {
+    type = "SystemAssigned"
+  }
+
+  tags = merge(local.default_tags, var.extra_tags)
 }

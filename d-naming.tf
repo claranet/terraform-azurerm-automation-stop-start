@@ -1,21 +1,3 @@
-data "azurecaf_name" "api_connection" {
-  name        = var.stack
-  prefixes    = compact([local.name_prefix, "apic"])
-  suffixes    = compact([var.client_name, var.location_short, var.environment, local.name_suffix])
-  use_slug    = true
-  clean_input = true
-  separator   = "-"
-}
-
-data "azurecaf_name" "workflow" {
-  name        = var.stack
-  prefixes    = compact([local.name_prefix, "wkf"])
-  suffixes    = compact([var.client_name, var.location_short, var.environment, local.name_suffix])
-  use_slug    = true
-  clean_input = true
-  separator   = "-"
-}
-
 data "azurecaf_name" "automation" {
   name          = var.stack
   resource_type = "azurerm_automation_account"
@@ -34,4 +16,22 @@ data "azurecaf_name" "runbook" {
   use_slug      = true
   clean_input   = true
   separator     = "-"
+}
+
+data "azurecaf_name" "api_connection" {
+  name        = var.stack
+  prefixes    = compact([local.name_prefix, "apic"])
+  suffixes    = compact([var.client_name, var.location_short, var.environment, local.name_suffix])
+  use_slug    = false
+  clean_input = true
+  separator   = "-"
+}
+
+data "azurecaf_name" "workflow" {
+  name        = var.stack
+  prefixes    = compact([local.name_prefix, "wkf"])
+  suffixes    = compact([var.client_name, var.location_short, var.environment, local.name_suffix])
+  use_slug    = false
+  clean_input = true
+  separator   = "-"
 }

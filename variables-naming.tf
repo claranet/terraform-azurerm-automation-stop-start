@@ -12,26 +12,26 @@ variable "name_suffix" {
 }
 
 # Custom naming override
-variable "workflow_custom_name" {
-  description = "Custom workflow name, generated if not set."
-  type        = string
-  default     = ""
-}
-
-variable "api_connection_custom_name" {
-  description = "Custom api connection account name, generated if not set."
-  type        = string
-  default     = ""
-}
-
 variable "custom_name" {
-  description = "Custom automation account name, generated if not set."
+  description = "Custom Automation account name, generated if not set."
   type        = string
   default     = ""
 }
 
 variable "runbook_custom_name" {
   description = "Custom runbook name, generated if not set."
+  type        = string
+  default     = ""
+}
+
+variable "api_connection_custom_name" {
+  description = "Custom API connection name, generated if not set."
+  type        = string
+  default     = ""
+}
+
+variable "workflow_custom_name" {
+  description = "Custom workflow name, generated if not set."
   type        = string
   default     = ""
 }
