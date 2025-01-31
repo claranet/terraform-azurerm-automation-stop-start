@@ -1,3 +1,23 @@
+## 7.0.2 (2025-01-31)
+
+### Code Refactoring
+
+* **AZ-111:** updates and some fixes c38615f
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.8.7 7f38110
+* **deps:** update dependency opentofu to v1.8.8 7819ebe
+* **deps:** update dependency opentofu to v1.9.0 b193a65
+* **deps:** update dependency pre-commit to v4.1.0 55af7a2
+* **deps:** update dependency tflint to v0.55.0 291ca5a
+* **deps:** update dependency trivy to v0.58.0 85b0a74
+* **deps:** update dependency trivy to v0.58.1 e606e50
+* **deps:** update dependency trivy to v0.58.2 6241364
+* **deps:** update dependency trivy to v0.59.0 b42f3b5
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.20.0 4d1681d
+* update tflint config for v0.55.0 863add0
+
 ## 7.0.1 (2024-11-29)
 
 ### Bug Fixes
