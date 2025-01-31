@@ -1,11 +1,11 @@
 # Azure Stop/Start with Automation
 [![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-blue.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![OpenTofu Registry](https://img.shields.io/badge/opentofu-registry-yellow.svg)](https://search.opentofu.org/module/claranet/automation-stop-start/azurerm/latest)
 
-Azure module to deploy an Azure Stop/Start workbook with an Automation Account.
+Azure module to deploy an Azure Stop/Start workbook with an Automation account.
 
 Supported Azure resources which can be managed by this module:
  - Azure Virtual Machine (both Linux or Windows)
- - Azure Kubernetes Cluster
+ - Azure Kubernetes Service cluster
  - Azure MySQL Flexible Server
 
 <!-- BEGIN_TF_DOCS -->
@@ -49,13 +49,14 @@ module "stop_start" {
   source  = "claranet/automation-stop-start/azurerm"
   version = "x.x.x"
 
+  location       = module.azure_region.location
+  location_cli   = module.azure_region.location_cli
+  location_short = module.azure_region.location_short
+  client_name    = var.client_name
+  environment    = var.environment
+  stack          = var.stack
+
   resource_group_name = module.rg.resource_group_name
-  client_name         = var.client_name
-  location            = module.azure_region.location
-  location_short      = module.azure_region.location_short
-  location_cli        = module.azure_region.location_cli
-  environment         = var.environment
-  stack               = var.stack
 
   automation_account = {
     id = module.run.automation_account_id
@@ -63,7 +64,7 @@ module "stop_start" {
 
   schedules = {
     start = {
-      action = "start",
+      action = "start"
       schedule_days = [
         "Monday",
         "Tuesday",
@@ -72,19 +73,18 @@ module "stop_start" {
         "Friday",
         "Saturday",
         "Sunday"
-      ],
-      schedule_hours    = 20,
-      schedule_minutes  = 54,
-      schedule_timezone = "Romance Standard Time",
-      target_resource_ids = [
+      ]
+      schedule_hour     = 20
+      schedule_minute   = 54
+      schedule_timezone = "Romance Standard Time"
+      target_resources_ids = [
         local.mysql_id,
         local.vm_id,
-        local.aks_id
-      ],
-
+        local.aks_id,
+      ]
     }
     stop = {
-      action = "stop",
+      action = "stop"
       schedule_days = [
         "Monday",
         "Tuesday",
@@ -93,21 +93,21 @@ module "stop_start" {
         "Friday",
         "Saturday",
         "Sunday"
-      ],
-      schedule_hours    = 21,
-      schedule_minutes  = 02,
-      schedule_timezone = "Romance Standard Time",
-      target_resource_ids = [
+      ]
+      schedule_hour     = 21
+      schedule_minute   = 2
+      schedule_timezone = "Romance Standard Time"
+      target_resources_ids = [
         local.mysql_id,
         local.vm_id,
-        local.aks_id
-      ],
+        local.aks_id,
+      ]
     }
   }
 
   logs_destinations_ids = [
+    module.run.log_analytics_workspace_id,
     module.run.logs_storage_account_id,
-    module.run.log_analytics_workspace_id
   ]
 
   extra_tags = {
@@ -117,20 +117,20 @@ module "stop_start" {
 
 resource "azurerm_role_assignment" "automation_vm" {
   scope                = local.vm_id
-  role_definition_name = "Virtual Machine Contributor"
   principal_id         = module.stop_start.identity_principal_id
+  role_definition_name = "Virtual Machine Contributor"
 }
 
 resource "azurerm_role_assignment" "automation_mysql" {
   scope                = local.mysql_id
-  role_definition_name = "Contributor"
   principal_id         = module.stop_start.identity_principal_id
+  role_definition_name = "Contributor"
 }
 
 resource "azurerm_role_assignment" "automation_aks" {
   scope                = local.aks_id
-  role_definition_name = "Contributor"
   principal_id         = module.stop_start.identity_principal_id
+  role_definition_name = "Contributor"
 }
 ```
 
@@ -157,27 +157,26 @@ resource "azurerm_role_assignment" "automation_aks" {
 | [azapi_update_resource.workflow_init](https://registry.terraform.io/providers/azure/azapi/latest/docs/resources/update_resource) | resource |
 | [azapi_update_resource.workflow_update](https://registry.terraform.io/providers/azure/azapi/latest/docs/resources/update_resource) | resource |
 | [azurerm_automation_account.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_account) | resource |
-| [azurerm_automation_runbook.start_stop](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_runbook) | resource |
+| [azurerm_automation_runbook.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_runbook) | resource |
 | [azurerm_logic_app_workflow.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/logic_app_workflow) | resource |
 | [azurerm_role_assignment.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
 | [azurecaf_name.api_connection](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurecaf_name.automation](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurecaf_name.runbook](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurecaf_name.workflow](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
-| [azurerm_resource_group.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/resource_group) | data source |
 | [azurerm_subscription.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) | data source |
-| [local_file.start_stop](https://registry.terraform.io/providers/hashicorp/local/latest/docs/data-sources/file) | data source |
+| [local_file.main](https://registry.terraform.io/providers/hashicorp/local/latest/docs/data-sources/file) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| api\_connection\_custom\_name | Custom api connection account name, generated if not set. | `string` | `""` | no |
-| automation\_account | The ID of the existing Automation Account. If null is specified, a new Automation Account will be created. | <pre>object({<br/>    id = string<br/>  })</pre> | `null` | no |
+| api\_connection\_custom\_name | Custom API connection name, generated if not set. | `string` | `""` | no |
+| automation\_account | The ID of an existing Automation account. If `null`, a new Automation account will be created. | <pre>object({<br/>    id = string<br/>  })</pre> | `null` | no |
 | client\_name | Client name/account used in naming. | `string` | n/a | yes |
-| custom\_name | Custom automation account name, generated if not set. | `string` | `""` | no |
+| custom\_name | Custom Automation account name, generated if not set. | `string` | `""` | no |
 | default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
-| diagnostic\_settings\_custom\_name | Custom name of the diagnostics settings, name will be `default` if not set. | `string` | `"default"` | no |
+| diagnostic\_settings\_custom\_name | Custom name of the diagnostic settings, name will be `default` if not set. | `string` | `"default"` | no |
 | environment | Project environment. | `string` | n/a | yes |
 | extra\_tags | Additional tags to add on resources. | `map(string)` | `{}` | no |
 | identity | Identity block information. | <pre>object({<br/>    type         = optional(string, "SystemAssigned")<br/>    identity_ids = optional(list(string))<br/>  })</pre> | `{}` | no |
@@ -189,23 +188,21 @@ resource "azurerm_role_assignment" "automation_aks" {
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
 | name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
-| rbac\_assignment\_enabled | Enable RBAC assignment, allows Automation Account to trigger Logic App. | `bool` | `true` | no |
-| resource\_group\_name | Name of the resource group. | `string` | n/a | yes |
+| rbac\_assignment\_enabled | Enable RBAC assignment, allows Automation account to trigger Logic App. | `bool` | `true` | no |
+| resource\_group\_name | Name of the Resource Group. | `string` | n/a | yes |
 | runbook\_custom\_name | Custom runbook name, generated if not set. | `string` | `""` | no |
-| schedules | Schedules | <pre>map(<br/>    object({<br/>      action              = string<br/>      schedule_days       = list(string)<br/>      schedule_hours      = number<br/>      schedule_minutes    = number<br/>      schedule_timezone   = string<br/>      target_resource_ids = list(string)<br/>    })<br/>  )</pre> | n/a | yes |
-| sku\_name | The SKU name of the Automation Account. | `string` | `"Basic"` | no |
-| stack | Project stack name. | `string` | n/a | yes |
+| schedules | Map of schedule objects. | <pre>map(<br/>    object({<br/>      action               = string<br/>      schedule_days        = list(string)<br/>      schedule_hour        = number<br/>      schedule_minute      = number<br/>      schedule_timezone    = string<br/>      target_resources_ids = list(string)<br/>    })<br/>  )</pre> | n/a | yes |
+| sku\_name | The SKU name of the Automation account. | `string` | `"Basic"` | no |
+| stack | Project Stack name. | `string` | n/a | yes |
 | workflow\_custom\_name | Custom workflow name, generated if not set. | `string` | `""` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| id | Azure Stop/Start with Automation ID. |
-| identity\_principal\_id | Azure Stop/Start with Automation system identity principal ID. |
-| module\_diagnostics | Diagnostics settings module outputs. |
-| name | Azure Stop/Start with Automation name. |
+| id | Azure Stop/Start Automation ID. |
+| identity\_principal\_id | Azure Stop/Start Automation identity principal ID. |
+| module\_diagnostics | Diagnostic settings module outputs. |
+| name | Azure Stop/Start Automation name. |
 | resource | Azure Stop/Start with Automation resource object. |
 <!-- END_TF_DOCS -->
-
-## Related documentation

@@ -1,6 +1,6 @@
 #### Common variables
 variable "resource_group_name" {
-  description = "Name of the resource group."
+  description = "Name of the Resource Group."
   type        = string
 }
 
@@ -9,13 +9,13 @@ variable "location" {
   type        = string
 }
 
-variable "location_short" {
-  description = "Short string for Azure location."
+variable "location_cli" {
+  description = "Short string for Azure location in CLI format."
   type        = string
 }
 
-variable "location_cli" {
-  description = "Short string for Azure location in CLI format."
+variable "location_short" {
+  description = "Short string for Azure location."
   type        = string
 }
 
@@ -30,6 +30,6 @@ variable "environment" {
 }
 
 variable "stack" {
-  description = "Project stack name."
+  description = "Project Stack name."
   type        = string
 }

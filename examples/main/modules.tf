@@ -8,13 +8,14 @@ module "stop_start" {
   source  = "claranet/automation-stop-start/azurerm"
   version = "x.x.x"
 
+  location       = module.azure_region.location
+  location_cli   = module.azure_region.location_cli
+  location_short = module.azure_region.location_short
+  client_name    = var.client_name
+  environment    = var.environment
+  stack          = var.stack
+
   resource_group_name = module.rg.resource_group_name
-  client_name         = var.client_name
-  location            = module.azure_region.location
-  location_short      = module.azure_region.location_short
-  location_cli        = module.azure_region.location_cli
-  environment         = var.environment
-  stack               = var.stack
 
   automation_account = {
     id = module.run.automation_account_id
@@ -22,7 +23,7 @@ module "stop_start" {
 
   schedules = {
     start = {
-      action = "start",
+      action = "start"
       schedule_days = [
         "Monday",
         "Tuesday",
@@ -31,19 +32,18 @@ module "stop_start" {
         "Friday",
         "Saturday",
         "Sunday"
-      ],
-      schedule_hours    = 20,
-      schedule_minutes  = 54,
-      schedule_timezone = "Romance Standard Time",
-      target_resource_ids = [
+      ]
+      schedule_hour     = 20
+      schedule_minute   = 54
+      schedule_timezone = "Romance Standard Time"
+      target_resources_ids = [
         local.mysql_id,
         local.vm_id,
-        local.aks_id
-      ],
-
+        local.aks_id,
+      ]
     }
     stop = {
-      action = "stop",
+      action = "stop"
       schedule_days = [
         "Monday",
         "Tuesday",
@@ -52,21 +52,21 @@ module "stop_start" {
         "Friday",
         "Saturday",
         "Sunday"
-      ],
-      schedule_hours    = 21,
-      schedule_minutes  = 02,
-      schedule_timezone = "Romance Standard Time",
-      target_resource_ids = [
+      ]
+      schedule_hour     = 21
+      schedule_minute   = 2
+      schedule_timezone = "Romance Standard Time"
+      target_resources_ids = [
         local.mysql_id,
         local.vm_id,
-        local.aks_id
-      ],
+        local.aks_id,
+      ]
     }
   }
 
   logs_destinations_ids = [
+    module.run.log_analytics_workspace_id,
     module.run.logs_storage_account_id,
-    module.run.log_analytics_workspace_id
   ]
 
   extra_tags = {
@@ -76,18 +76,18 @@ module "stop_start" {
 
 resource "azurerm_role_assignment" "automation_vm" {
   scope                = local.vm_id
-  role_definition_name = "Virtual Machine Contributor"
   principal_id         = module.stop_start.identity_principal_id
+  role_definition_name = "Virtual Machine Contributor"
 }
 
 resource "azurerm_role_assignment" "automation_mysql" {
   scope                = local.mysql_id
-  role_definition_name = "Contributor"
   principal_id         = module.stop_start.identity_principal_id
+  role_definition_name = "Contributor"
 }
 
 resource "azurerm_role_assignment" "automation_aks" {
   scope                = local.aks_id
-  role_definition_name = "Contributor"
   principal_id         = module.stop_start.identity_principal_id
+  role_definition_name = "Contributor"
 }

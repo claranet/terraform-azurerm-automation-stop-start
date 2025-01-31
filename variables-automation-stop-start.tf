@@ -1,9 +1,16 @@
 variable "automation_account" {
-  description = "The ID of the existing Automation Account. If null is specified, a new Automation Account will be created."
+  description = "The ID of an existing Automation account. If `null`, a new Automation account will be created."
   type = object({
     id = string
   })
   default = null
+}
+
+variable "sku_name" {
+  description = "The SKU name of the Automation account."
+  type        = string
+  default     = "Basic"
+  nullable    = false
 }
 
 variable "identity" {
@@ -16,47 +23,44 @@ variable "identity" {
   nullable = false
 }
 
-variable "sku_name" {
-  description = "The SKU name of the Automation Account."
-  type        = string
-  default     = "Basic"
-  nullable    = false
-}
-
 variable "rbac_assignment_enabled" {
-  description = "Enable RBAC assignment, allows Automation Account to trigger Logic App."
+  description = "Enable RBAC assignment, allows Automation account to trigger Logic App."
   type        = bool
   default     = true
   nullable    = false
 }
 
 variable "schedules" {
-  description = "Schedules"
+  description = "Map of schedule objects."
   type = map(
     object({
-      action              = string
-      schedule_days       = list(string)
-      schedule_hours      = number
-      schedule_minutes    = number
-      schedule_timezone   = string
-      target_resource_ids = list(string)
+      action               = string
+      schedule_days        = list(string)
+      schedule_hour        = number
+      schedule_minute      = number
+      schedule_timezone    = string
+      target_resources_ids = list(string)
     })
   )
 
   validation {
     condition = alltrue([
-      for schedule in var.schedules : schedule.schedule_minutes >= 0 && schedule.schedule_minutes <= 59
+      for schedule in var.schedules : contains(["start", "stop"], schedule.action)
     ])
-    error_message = "The schedule_minutes variable must be a number between 0 and 59."
+    error_message = "Possible values for `action` parameter are 'start' and 'stop'."
   }
-
   validation {
     condition = alltrue([
-      for schedule in var.schedules : schedule.schedule_hours >= 0 && schedule.schedule_hours <= 23
+      for schedule in var.schedules : schedule.schedule_minute >= 0 && schedule.schedule_minute <= 59
     ])
-    error_message = "The recurence_hours variable must be a number between 0 and 23."
+    error_message = "`schedule_minute` parameter must be a number between 0 and 59."
   }
-
+  validation {
+    condition = alltrue([
+      for schedule in var.schedules : schedule.schedule_hour >= 0 && schedule.schedule_hour <= 23
+    ])
+    error_message = "`recurence_hour` parameter must be a number between 0 and 23."
+  }
   validation {
     condition = alltrue([
       for schedule in var.schedules : alltrue([
@@ -67,10 +71,10 @@ variable "schedules" {
           "Thursday",
           "Friday",
           "Saturday",
-          "Sunday"],
-        day)
+          "Sunday",
+        ], day)
       ])
     ])
-    error_message = "The recurence_days variable must contains a list of days : \"Monday\",\"Tuesday\",\"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\",\"Sunday\"."
+    error_message = "`schedule_days` parameter must contains a list of days: [\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\", \"Sunday\"]."
   }
 }
