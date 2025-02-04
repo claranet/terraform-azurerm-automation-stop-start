@@ -147,7 +147,7 @@ resource "azurerm_role_assignment" "automation_aks" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| diagnostics | claranet/diagnostic-settings/azurerm | ~> 7.0 |
+| diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.0 |
 
 ## Resources
 
