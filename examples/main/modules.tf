@@ -15,7 +15,7 @@ module "stop_start" {
   environment    = var.environment
   stack          = var.stack
 
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
 
   automation_account = {
     id = module.run.automation_account_id
