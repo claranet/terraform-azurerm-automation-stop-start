@@ -1,6 +1,6 @@
 module "diagnostics" {
   source  = "claranet/diagnostic-settings/azurerm"
-  version = "~> 7.0"
+  version = "~> 8.0"
 
   resource_id = local.automation_account_id
 

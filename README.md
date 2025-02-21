@@ -56,7 +56,7 @@ module "stop_start" {
   environment    = var.environment
   stack          = var.stack
 
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
 
   automation_account = {
     id = module.run.automation_account_id
@@ -138,16 +138,16 @@ resource "azurerm_role_assignment" "automation_aks" {
 
 | Name | Version |
 |------|---------|
-| azapi | ~> 1.13 |
-| azurecaf | ~> 1.2.28 |
-| azurerm | ~> 3.100 |
+| azapi | ~> 2.0 |
+| azurecaf | ~> 1.2.29 |
+| azurerm | ~> 4.0 |
 | local | ~> 2.4 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| diagnostics | claranet/diagnostic-settings/azurerm | ~> 7.0 |
+| diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.0 |
 
 ## Resources
 
