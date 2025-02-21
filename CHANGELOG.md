@@ -1,3 +1,26 @@
+## 8.0.0 (2025-02-21)
+
+### ⚠ BREAKING CHANGES
+
+* **AZ-1088:** AzureRM Provider v4+ and OpenTofu 1.8+
+
+### Features
+
+* **AZ-1088:** module v8 structure and updates 668c746
+
+### Documentation
+
+* **AZ-1088:** update example 4d4acf2
+
+### Miscellaneous Chores
+
+* **deps:** update dependency claranet/diagnostic-settings/azurerm to v8 593ec8a
+* **deps:** update dependency tflint to v0.55.1 66397b3
+* **deps:** update dependency trivy to v0.59.1 db571d0
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.21.0 01ee5b5
+* **deps:** update terraform azapi to v2 b668027
+* update Github templates c2fcffc
+
 ## 7.0.2 (2025-01-31)
 
 ### Code Refactoring
