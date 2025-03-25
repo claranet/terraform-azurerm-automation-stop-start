@@ -1,3 +1,15 @@
+## 8.0.1 (2025-03-25)
+
+### Bug Fixes
+
+* **AZ-1543:** remove jsonencode function from azapi v2 resources 4ca150b
+
+### Miscellaneous Chores
+
+* **deps:** update dependency pre-commit to v4.2.0 4a31f68
+* **deps:** update dependency trivy to v0.60.0 753a474
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.22.0 3445430
+
 ## 8.0.0 (2025-02-21)
 
 ### ⚠ BREAKING CHANGES
