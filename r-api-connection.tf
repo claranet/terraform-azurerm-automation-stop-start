@@ -8,7 +8,7 @@ resource "azapi_resource" "automation_connection" {
 
   schema_validation_enabled = false
 
-  body = jsonencode({
+  body = {
     properties = {
       alternativeParameterValues = {}
       customParameterValues      = {}
@@ -21,7 +21,7 @@ resource "azapi_resource" "automation_connection" {
         description = "Azure Automation provides tools to manage your cloud and on-premises infrastructure seamlessly."
       }
     }
-  })
+  }
 
   tags = merge(local.default_tags, var.extra_tags)
 }

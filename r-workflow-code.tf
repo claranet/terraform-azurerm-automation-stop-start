@@ -5,10 +5,10 @@ resource "azapi_update_resource" "workflow_init" {
 
   resource_id = each.value.id
 
-  body = jsonencode({
+  body = {
     location   = var.location_cli
     properties = jsondecode(file("${path.module}/files/workflow_init.json"))
-  })
+  }
 
   lifecycle {
     ignore_changes = [
@@ -24,8 +24,8 @@ resource "azapi_update_resource" "workflow_update" {
 
   resource_id = each.value.resource_id
 
-  body = jsonencode({
+  body = {
     location   = var.location_cli
     properties = jsondecode(templatefile("${path.module}/files/workflow.tftpl", local.workflow_vars[each.key]))
-  })
+  }
 }
