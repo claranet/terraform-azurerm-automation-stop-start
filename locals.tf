@@ -1,6 +1,5 @@
 locals {
-  automation_account_id   = var.automation_account == null ? one(azurerm_automation_account.main[*].id) : var.automation_account.id
-  automation_account_name = reverse(split("/", local.automation_account_id))[0]
+  automation_account_id = var.automation_account == null ? one(azurerm_automation_account.main[*].id) : var.automation_account.id
 
   recurences = {
     for key, value in var.schedules : key => {

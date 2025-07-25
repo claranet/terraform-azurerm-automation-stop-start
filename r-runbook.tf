@@ -4,7 +4,7 @@ resource "azurerm_automation_runbook" "main" {
 
   resource_group_name = var.resource_group_name
 
-  automation_account_name = local.automation_account_name
+  automation_account_name = local.name
 
   log_verbose  = "true"
   log_progress = "true"
