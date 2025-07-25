@@ -1,3 +1,13 @@
+## 8.1.1 (2025-07-25)
+
+### Bug Fixes
+
+* correct command for starting PostgreSQL Flexible server c823620
+
+### Miscellaneous Chores
+
+* refactor local variable names 973f53e
+
 ## 8.1.0 (2025-07-25)
 
 ### Features
