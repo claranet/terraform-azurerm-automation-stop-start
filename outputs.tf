@@ -15,7 +15,7 @@ output "id" {
 
 output "name" {
   description = "Azure Stop/Start Automation name."
-  value       = local.automation_account_name
+  value       = local.name
 }
 
 output "identity_principal_id" {
