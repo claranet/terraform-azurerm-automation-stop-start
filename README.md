@@ -7,6 +7,8 @@ Supported Azure resources which can be managed by this module:
  - Azure Virtual Machine (both Linux or Windows)
  - Azure Kubernetes Service cluster
  - Azure MySQL Flexible Server
+ - Azure PostgreSQL Flexible Server
+ - Azure Web App
 
 <!-- BEGIN_TF_DOCS -->
 ## Global versioning rule for Claranet Azure modules

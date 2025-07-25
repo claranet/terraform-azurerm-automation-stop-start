@@ -24,9 +24,10 @@ Write-Output "Using system-assigned managed identity"
 # set and store context
 $AzureContext = Set-AzContext -SubscriptionName $AzureContext.Subscription -DefaultProfile $AzureContext
 
-$resource_type = $(Get-AzResource -ResourceId $target_resource_id).ResourceType
-$resource_name = $(Get-AzResource -ResourceId $target_resource_id).Name
-$resource_sub = ($target_resource_id -split "/")[2]
+$resource_type       = $(Get-AzResource -ResourceId $target_resource_id).ResourceType
+$resource_name       = $(Get-AzResource -ResourceId $target_resource_id).Name
+$resource_group_name = $(Get-AzResource -ResourceId $target_resource_id).ResourceGroupName
+$resource_sub        = ($target_resource_id -split "/")[2]
 
 Write-Output "Resource type: $resource_type - Resource name: $resource_name in Sub $resource_sub"
 Write-Output "Switching context to $resource_sub"
@@ -61,6 +62,19 @@ Switch ($resource_type) {
         }
     }
 
+    "Microsoft.DBforPostgreSQL/flexibleServers" {
+        Switch ($action) {
+            "stop" {
+                Write-Output "Stopping PostgreSQL Flexible $resource_name"
+                Stop-AzPostgreSqlFlexibleServer -InputObject $target_resource_id/stop
+            }
+            "start" {
+                Write-Output "Starting PostgreSQL Flexible $resource_name"
+                Start-AzMySqlFlexibleServer -InputObject $target_resource_id/start
+            }
+        }
+    }
+
     "Microsoft.ContainerService/managedClusters" {
         Switch ($action) {
             "stop" {
@@ -73,4 +87,18 @@ Switch ($resource_type) {
             }
         }
     }
+
+    "Microsoft.Web/sites" {
+        Switch ($action) {
+            "stop" {
+                Write-Output "Stopping Web App $resource_name"
+                Stop-AzWebApp -Name $resource_name -ResourceGroupName $resource_group_name -Force
+            }
+            "start" {
+                Write-Output "Starting Web App $resource_name"
+                Start-AzWebApp -Name $resource_name -ResourceGroupName $resource_group_name
+            }
+        }
+    }
+
 }
