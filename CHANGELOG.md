@@ -1,3 +1,35 @@
+## 8.1.0 (2025-07-25)
+
+### Features
+
+* add postgresql & webapp compatibility 581b36f
+
+### Bug Fixes
+
+* use existing automation account name 470c62f
+
+### Miscellaneous Chores
+
+* **⚙️:** ✏️ update template identifier for MR review b0415f3
+* 🗑️ remove old commitlint configuration files bc7f194
+* **deps:** update dependency opentofu to v1.10.0 c40c624
+* **deps:** update dependency opentofu to v1.10.1 1b799d2
+* **deps:** update dependency opentofu to v1.10.3 b8b184c
+* **deps:** update dependency opentofu to v1.9.1 405f8b3
+* **deps:** update dependency terraform-docs to v0.20.0 64ec047
+* **deps:** update dependency tflint to v0.56.0 56c39f4
+* **deps:** update dependency tflint to v0.57.0 9c28ece
+* **deps:** update dependency tflint to v0.58.0 170d13a
+* **deps:** update dependency tflint to v0.58.1 3297362
+* **deps:** update dependency trivy to v0.61.0 d1c368a
+* **deps:** update dependency trivy to v0.61.1 ddd71c4
+* **deps:** update dependency trivy to v0.62.0 3323a0d
+* **deps:** update dependency trivy to v0.62.1 e593f51
+* **deps:** update dependency trivy to v0.63.0 abab8e1
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.0 03102a3
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.1 ceed22e
+* **deps:** update tools caff3f0
+
 ## 8.0.1 (2025-03-25)
 
 ### Bug Fixes
