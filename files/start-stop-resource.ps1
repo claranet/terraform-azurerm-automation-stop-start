@@ -70,7 +70,7 @@ Switch ($resource_type) {
             }
             "start" {
                 Write-Output "Starting PostgreSQL Flexible $resource_name"
-                Start-AzMySqlFlexibleServer -InputObject $target_resource_id/start
+                Start-AzPostgreSqlFlexibleServer -InputObject $target_resource_id/start
             }
         }
     }
