@@ -1,3 +1,20 @@
+## 8.1.2 (2025-09-30)
+
+### Code Refactoring
+
+* **deps:** 🔗 update claranet/azurecaf to ~> 1.3.0 🔧 ead1e17
+
+### Miscellaneous Chores
+
+* **deps:** 🔗 bump AzureRM provider version to v4.31+ eea8050
+* **deps:** update dependency opentofu to v1.10.6 0a89964
+* **deps:** update dependency tflint to v0.59.1 dfc446f
+* **deps:** update dependency trivy to v0.66.0 1863d5e
+* **deps:** update dependency trivy to v0.67.0 3c9dadb
+* **deps:** update pre-commit hook pre-commit/pre-commit-hooks to v6 8fdb68e
+* **deps:** update tools 02a1978
+* **deps:** update tools 72a5913
+
 ## 8.1.1 (2025-07-25)
 
 ### Bug Fixes
