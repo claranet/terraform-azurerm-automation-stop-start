@@ -141,7 +141,7 @@ resource "azurerm_role_assignment" "automation_aks" {
 | Name | Version |
 |------|---------|
 | azapi | ~> 2.0 |
-| azurecaf | ~> 1.2.29 |
+| azurecaf | >= 1.2.28 |
 | azurerm | ~> 4.31 |
 | local | ~> 2.4 |
 
