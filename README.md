@@ -139,7 +139,7 @@ resource "azurerm_role_assignment" "automation_aks" {
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | azapi | ~> 2.0 |
 | azurecaf | >= 1.2.28 |
 | azurerm | ~> 4.31 |
@@ -148,13 +148,13 @@ resource "azurerm_role_assignment" "automation_aks" {
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [azapi_resource.automation_connection](https://registry.terraform.io/providers/azure/azapi/latest/docs/resources/resource) | resource |
 | [azapi_update_resource.workflow_init](https://registry.terraform.io/providers/azure/azapi/latest/docs/resources/update_resource) | resource |
 | [azapi_update_resource.workflow_update](https://registry.terraform.io/providers/azure/azapi/latest/docs/resources/update_resource) | resource |
@@ -172,7 +172,7 @@ resource "azurerm_role_assignment" "automation_aks" {
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | api\_connection\_custom\_name | Custom API connection name, generated if not set. | `string` | `""` | no |
 | automation\_account | The ID of an existing Automation account. If `null`, a new Automation account will be created. | <pre>object({<br/>    id = string<br/>  })</pre> | `null` | no |
 | client\_name | Client name/account used in naming. | `string` | n/a | yes |
@@ -201,7 +201,7 @@ resource "azurerm_role_assignment" "automation_aks" {
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | id | Azure Stop/Start Automation ID. |
 | identity\_principal\_id | Azure Stop/Start Automation identity principal ID. |
 | module\_diagnostics | Diagnostic settings module outputs. |
