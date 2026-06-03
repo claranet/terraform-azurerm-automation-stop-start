@@ -1,6 +1,7 @@
 output "resource" {
   description = "Azure Stop/Start with Automation resource object."
   value       = one(azurerm_automation_account.main[*])
+  sensitive   = true
 }
 
 output "module_diagnostics" {
