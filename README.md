@@ -142,15 +142,15 @@ resource "azurerm_role_assignment" "automation_aks" {
 | Name | Version |
 | ---- | ------- |
 | azapi | ~> 2.0 |
-| azurecaf | >= 1.2.28 |
-| azurerm | ~> 4.31 |
+| azurecaf | ~> 1.3.0 |
+| azurerm | ~> 5.0 |
 | local | ~> 2.4 |
 
 ## Modules
 
 | Name | Source | Version |
 | ---- | ------ | ------- |
-| diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.0 |
+| diagnostics | claranet/diagnostic-settings/azurerm | ~> 9.0 |
 
 ## Resources
 
